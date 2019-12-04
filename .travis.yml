@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "stable"
+before_install: cd server
+script:
+  - npm test
+after_success:
+env:
+  - NODE_ENV = test
