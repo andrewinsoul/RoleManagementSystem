@@ -4,10 +4,10 @@
   "description": "The API of the role management system",
   "main": "index.js",
   "scripts": {
-    "test": "test",
     "start": "babel-node app",
     "migrate": "sequelize db:migrate",
-    "unmigrate": "sequelize db:migrate:undo:all"
+    "unmigrate": "sequelize db:migrate:undo:all",
+    "test": "nyc mocha ./test --require babel-core/register --timeout 18000 --exit"
   },
   "repository": {
     "type": "git",
@@ -34,5 +34,10 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.2",
     "sequelize-cli": "^5.5.1"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.2.2",
+    "nyc": "^14.1.1"
   }
 }
