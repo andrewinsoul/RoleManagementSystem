@@ -4,6 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     id: {
       type: DataTypes.UUID,
       allowNull: false,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
       
     },
     roleId: {
@@ -22,7 +24,9 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     }
-  }, {});
+  }, {
+    freezeTableName: true,
+  });
   role_permission.associate = function(models) {
     // associations can be defined here
   };

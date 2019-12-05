@@ -1,12 +1,22 @@
 language: node_js
-
 node_js:
   - "stable"
-
-  before_install: cd server
-
-  script:
+addons:
+  postgresql: "10"
+services:
+  - postgresql
+before_install: 
+  - cd server
+before_script:
+  - psql -c 'create database roleMgtTest;' -U postgres
+  - npm run migrate
+  - npm i -D coveralls
+after_script:
+  - npm run unmigrate
+script:
   - npm test
-
+after_success:
+  - npm run coverage
+  - npm run report-coverage
 env:
   - NODE_ENV = test

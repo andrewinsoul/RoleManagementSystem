@@ -7,7 +7,7 @@
     "start": "babel-node app",
     "migrate": "sequelize db:migrate",
     "unmigrate": "sequelize db:migrate:undo:all",
-    "test": "nyc mocha ./test --require babel-core/register --timeout 18000 --exit"
+    "test": "nyc mocha --require babel-core/register --timeout 18000 --exit"
   },
   "repository": {
     "type": "git",
@@ -20,24 +20,31 @@
   },
   "homepage": "https://github.com/andrewinsoul/RoleManagementSystem#readme",
   "dependencies": {
+    "@sendgrid/mail": "^6.4.0",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.3",
     "babel-polyfill": "6.26.0",
     "babel-preset-env": "1.7.0",
     "babel-preset-stage-0": "6.24.1",
     "babel-register": "6.26.0",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "faker": "^4.1.0",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "pg": "^7.14.0",
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.21.2",
-    "sequelize-cli": "^5.5.1"
+    "sequelize-cli": "^5.5.1",
+    "uuid": "^3.3.3"
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "mocha": "^6.2.2",
-    "nyc": "^14.1.1"
+    "nyc": "^14.1.1",
+    "sinon": "^7.5.0"
   }
 }

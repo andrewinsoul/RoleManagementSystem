@@ -17,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
-  }, {});
+  }, {
+    freezeTableName: true,
+  });
   roles.associate = function(models) {
     roles.belongsToMany(models.user, {
       through: 'user_role',
