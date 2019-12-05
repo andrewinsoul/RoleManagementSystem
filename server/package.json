@@ -6,6 +6,7 @@
   "scripts": {
     "start": "babel-node app",
     "migrate": "sequelize db:migrate",
+    "seed": "sequelize db:seed:undo:all",
     "unmigrate": "sequelize db:migrate:undo:all",
     "test": "nyc mocha --require babel-core/register --timeout 18000 --exit"
   },
