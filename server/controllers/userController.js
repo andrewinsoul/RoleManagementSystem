@@ -138,7 +138,7 @@ class UserController {
           }
         }]
       }]
-    }).then((result) => handleSuccess(res, JSON.stringify(result), 200))
+    }).then((result) => handleSuccess(res, {data: result}, 200))
     .catch(err => handleError(res, {err}, 500));
   }
 
