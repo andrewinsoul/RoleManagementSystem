@@ -17,15 +17,16 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     }
-  }, {});
+  }, {
+    freezeTableName: true,
+  });
   roles.associate = function(models) {
-    roles.belongsToMany(models.user, {
-      through: 'user_role',
-      foreignKey: 'roleId'
+    roles.hasMany(models.user, {
+      foreignKey: 'roleId',
     });
     roles.belongsToMany(models.permission, {
       through: 'role_permission',
-      foreignKey: 'roleId'
+      foreignKey: 'roleId',
     });
   };
   return roles;

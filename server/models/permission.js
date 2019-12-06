@@ -20,7 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.TEXT
     }
-  }, {});
+  }, {
+    freezeTableName: true,
+  });
   permission.associate = function(models) {
     permission.belongsToMany(models.roles, {
       through: 'role_permission',

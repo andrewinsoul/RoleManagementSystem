@@ -1,4 +1,6 @@
-module.exports = (sequelize, DataTypes) => {
+import { encodePassword } from '../utils/passwordUtil';
+
+export default (sequelize, DataTypes) => {
   const user = sequelize.define('user', {
     id: {
       type: DataTypes.UUID,
@@ -45,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
       validate: {
         len: [11, 16],
         is: {
@@ -56,12 +59,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-  }, {});
+  }, {
+    freezeTableName: true,
+    hooks: {
+      beforeCreate: async (user) => {
+        user.password = await encodePassword(user.password);
+        user.email = await user.email.toLowerCase()
+      }
+    }
+  });
   user.associate = function(models) {
-    user.belongsToMany(models.roles, {
-      through: 'user_role',
-      foreignKey: 'userId'
-    });
+    user.belongsTo(models.roles);
   };
   return user;
-};
+}

@@ -1,12 +1,21 @@
 language: node_js
-
 node_js:
   - "stable"
-
-  before_install: cd server
-
-  script:
+addons:
+  postgresql: "10"
+services:
+  - postgresql
+before_install: 
+  - cd server
+before_script:
+  - npm run migrate
+  - npm run seed
+  - npm i -D coveralls
+after_script:
+  - npm run unmigrate
+script:
   - npm test
-
+after_success:
+  - npm run report-coverage
 env:
   - NODE_ENV = test
