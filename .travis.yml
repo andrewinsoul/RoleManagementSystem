@@ -8,7 +8,6 @@ services:
 before_install: 
   - cd server
 before_script:
-  - psql -c 'create database roleMgtTest;' -U postgres
   - npm run migrate
   - npm run seed
   - npm i -D coveralls
@@ -17,7 +16,6 @@ after_script:
 script:
   - npm test
 after_success:
-  - npm run coverage
   - npm run report-coverage
 env:
   - NODE_ENV = test

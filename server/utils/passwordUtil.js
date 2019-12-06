@@ -11,10 +11,10 @@ export function encodePassword(rawPassword) {
 
 /**
  * @description - checks if encryped password === to password entered
- * @param {string} passwordSupplied - encrypted password supplied by the client
+ * @param {string} passwordSupplied - password supplied by the client
  * @param {string} passwordInDb - encrypted password in database
  * @returns {boolean} - returns true if the password is right else false
  */
 export function comparePassword(passwordSupplied, passwordInDb) {
-  return bcrypt.compareSync(passwordInDb, passwordSupplied);
+  return bcrypt.compareSync(passwordSupplied, passwordInDb);
 }

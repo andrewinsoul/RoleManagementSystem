@@ -30,6 +30,14 @@ module.exports = {
         allowNull: false,
         unique: true
       },
+      roleId: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'roles',
+          key: 'id'
+        }
+      },
       is_verified: {
         type: Sequelize.BOOLEAN,
         defaultValue: false

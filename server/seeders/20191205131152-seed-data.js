@@ -1,9 +1,11 @@
 const uuidv4 = require('uuid/v4');
+require('dotenv').config()
+const { ROLEID } = process.env;
 const faker = require('faker');
 const roleList = [
   {id: uuidv4(), name: 'premium', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()},
   {id: uuidv4(), name: 'super-admin', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()},
-  {id: uuidv4(), name: 'regular', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()},
+  {id: ROLEID, name: 'regular', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()},
   {id: uuidv4(), name: 'admin', createdAt: new Date().toISOString(), updatedAt: new Date().toISOString()}
 ];
 
@@ -81,12 +83,13 @@ for (let i=0; i<4; i++) {
     lastName: faker.name.lastName(),
     email: faker.internet.email().toLowerCase(),
     password: faker.lorem.word(),
+    roleId: roleList[i].id,
     phone: '0'+faker.phone.phoneNumberFormat().replace(/-/g, '')+'2',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString()
   })
 }
-const userRoleList = [];
+
 const rolePermList = []
 
 for (let i=0; i<permissionList.length; i++) {
@@ -131,22 +134,11 @@ for (let i=0; i<permissionList.length; i++) {
   })
 }
  
-for (let i=0; i<userList.length; i++) {
-  userRoleList.push({
-    id: uuidv4(),
-    userId: userList[i].id,
-    roleId: roleList[i].id,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString()
-  });
-}
-
 module.exports = {
   down: async(queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert('role', roleList, {});
+    await queryInterface.bulkInsert('roles', roleList, {});
     await queryInterface.bulkInsert('permission', permissionList, {});
     await queryInterface.bulkInsert('user', userList, {});
     await queryInterface.bulkInsert('role_permission', rolePermList, {});
-    await queryInterface.bulkInsert('user_role', userRoleList, {})
   },
 }

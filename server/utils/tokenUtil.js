@@ -1,4 +1,9 @@
 import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+dotenv.config()
+
+const key = process.env.KEY;
 
 /**
  * @description - It creates token of the payload passed in as argument
@@ -9,21 +14,23 @@ import jwt from 'jsonwebtoken';
  */
 export function createToken (payload, key, tokenDuration=86400) {
   const token = jwt.sign(
-    payload, key, {expiresIn: tokenDuration}
+    payload, key, {expiresIn: `${tokenDuration}s`}
   );
   return token;
 }
 
 /**
    * @description - function that verifies the authencity of a token
-   * @param {object} req - the request object
-   * @param {object} res - the response object
-   * @param {function} next - the callback function
-   * @param {string} key - key used in decoding token
-   * @returns {object} - status code and error
+   * @param {string} - the value of token to be verified
+   * @returns {object} - undefined if token is valid or decoded payload from the token
    */
-  export function verifyToken(req, res, next, key) {
-    const token = req.headers['x-access-token'] || req.body.token;
+  export function verifyToken(token, key) {
+    const payload = jwt.verify(token, key);
+    return payload
+  }
+
+  function verifyToken(req, res, next) {
+    const token = req.headers['x-access-token'] || req.body.token || req.query.q;
     if (!token) {
       return res.status(403).send({
         status: 'error',
@@ -41,7 +48,7 @@ export function createToken (payload, key, tokenDuration=86400) {
           });
         }
         req.userId = decoded.id;
-        req.userRoleId = decoded.role_id;
+        req.verified = decoded.is_verified;
         return next();
       }
     );

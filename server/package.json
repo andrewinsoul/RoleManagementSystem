@@ -7,8 +7,10 @@
     "start": "babel-node app",
     "migrate": "sequelize db:migrate",
     "seed": "sequelize db:seed:undo:all",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "coverage": "nyc --reporter=lcov --reporter=text-lcov nyc mocha --require babel-core/register --timeout 18000 --exit",
     "unmigrate": "sequelize db:migrate:undo:all",
-    "test": "nyc mocha --require babel-core/register --timeout 18000 --exit"
+    "test": "npm run coverage"
   },
   "repository": {
     "type": "git",

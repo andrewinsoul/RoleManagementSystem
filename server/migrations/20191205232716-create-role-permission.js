@@ -10,11 +10,19 @@ module.exports = {
       },
       roleId: {
         type: Sequelize.UUID,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'roles',
+          key: 'id'
+        }
       },
       permId: {
         type: Sequelize.UUID,
-        allowNull: false
+        allowNull: false,
+        references: {
+          model: 'permission',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
