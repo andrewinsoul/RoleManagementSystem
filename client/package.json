@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "css-loader": "^3.2.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "file-loader": "^5.0.2",
     "font-awesome": "^4.7.0",
     "font-awesome-loader": "^1.0.2",
